@@ -3,7 +3,7 @@ const validator = require('validator');
 
 const LoginSchema = new mongoose.Schema({
   email: { type: String, required: true },
-  senha: { type: String, require: true}
+  password: { type: String, require: true }
 });
 
 const LoginModel = mongoose.model('Login', LoginSchema);
