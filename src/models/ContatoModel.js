@@ -10,7 +10,6 @@ const ContatoSchema = new mongoose.Schema({
 });
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
-
 class Contato {
   constructor(body){
     this.body = body;
@@ -45,6 +44,17 @@ class Contato {
         telefone: this.body.telefone
     }
   }
+  async edit(id){
+    if(typeof id !== 'string') return;
+    this.valida();
+    if(this.errors.length > 0) return;
+    this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true });
+  } 
+}
+Contato.buscaPorId = async (id) => {
+  if(typeof id !== 'string') return;
+  const user = await ContatoModel.findById(id);
+  return user;
 }
 
 module.exports = Contato;
